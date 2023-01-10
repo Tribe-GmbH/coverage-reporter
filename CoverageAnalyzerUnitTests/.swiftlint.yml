@@ -1,0 +1,5 @@
+disabled_rules:
+    - force_unwrapping
+    - force_cast
+    - function_body_length
+    - closure_body_length
