@@ -1,0 +1,65 @@
+name: CI
+
+on:
+    push:
+        branches:
+            - main
+    pull_request:
+        branches:
+            - main
+
+jobs:
+    install:
+        runs-on: macos-12
+        steps:
+          - uses: actions/checkout@v3
+          - uses: ./.github/actions/swift-package-manager-cache-restore
+            id: restore-cache
+          - if: ${{ steps.restore-cache.outputs.cache-hit != 'true' }}
+            run: swift package resolve
+          - if: ${{ steps.restore-cache.outputs.cache-hit != 'true' }}
+            run: swift build -c debug --product swiftlint
+          - if: ${{ steps.restore-cache.outputs.cache-hit != 'true' }}
+            run: swift build -c debug --product swiftformat
+          - if: ${{ steps.restore-cache.outputs.cache-hit != 'true' }}
+            uses: ./.github/actions/swift-package-manager-cache-save
+    static-code-analysis:
+        runs-on: macos-12
+        needs: install
+        steps:
+            - uses: actions/checkout@v3
+            - uses: ./.github/actions/swift-package-manager-cache-restore
+            - run: swift run -c debug swiftformat . --lint
+            - run: swift run -c debug swiftlint lint
+    build:
+        runs-on: macos-12
+        needs: [install, static-code-analysis]
+        steps:
+            - uses: actions/checkout@v3
+            - uses: ./.github/actions/swift-package-manager-cache-restore
+            - run: swift build -c release --product coverage-reporter
+            - run: echo "UPLOAD_PATH=$(readlink -f .build/release/coverage-reporter)" >> $GITHUB_ENV
+            - uses: actions/upload-artifact@v3
+              with:
+                  name: dist
+                  path: ${{ env.UPLOAD_PATH }}
+    unit-tests:
+        runs-on: macos-12
+        needs: [install, static-code-analysis]
+        steps:
+            - uses: actions/checkout@v3
+            - uses: ./.github/actions/swift-package-manager-cache-restore
+            - run: swift test --filter ".*UnitTests"
+    integration-tests:
+        runs-on: macos-12
+        needs: [install, static-code-analysis, unit-tests, build]
+        steps:
+            - uses: actions/checkout@v3
+            - uses: ./.github/actions/swift-package-manager-cache-restore
+            - run: echo "DOWNLOAD_TARGET_PATH=$(readlink -f .build/release)" >> $GITHUB_ENV
+            - uses: actions/download-artifact@v3
+              with:
+                  name: dist
+                  path: ${{ env.DOWNLOAD_TARGET_PATH }}
+            - run: chmod +x ${DOWNLOAD_TARGET_PATH}/coverage-reporter
+            - run: swift test --filter CliIntegrationTests

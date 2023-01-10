@@ -1,0 +1,16 @@
+name: swift-package-manager-cache-restore
+description: Reusable action to restore cache from swift package manager
+
+outputs:
+    cache-hit:
+        description: "Cache hit"
+        value: ${{ steps.spm-cache-resolve.outputs.cache-hit }}
+
+runs:
+    using: composite
+    steps:
+      - uses: actions/cache/restore@v3
+        id: spm-cache-resolve
+        with:
+            path: .build
+            key: ${{ runner.os }}-spm-${{ hashFiles('Package.resolved', 'Package.swift') }}

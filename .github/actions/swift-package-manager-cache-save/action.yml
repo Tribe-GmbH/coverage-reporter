@@ -1,0 +1,10 @@
+name: swift-package-manager-cache-save
+description: Reusable action to save cache from swift package manager
+
+runs:
+    using: composite
+    steps:
+      - uses: actions/cache/save@v3
+        with:
+            path: .build
+            key: ${{ runner.os }}-spm-${{ hashFiles('Package.resolved', 'Package.swift') }}
