@@ -3,9 +3,9 @@ import Foundation
 internal func determineProjectFolder() -> String {
     let currentFileUrl = URL(fileURLWithPath: #file)
     let currentFolderUrl = currentFileUrl.deletingLastPathComponent()
-    let projectFolderUrl = currentFolderUrl.appending(component: "..")
+    let projectFolderUrl = currentFolderUrl.deletingLastPathComponent()
 
-    return projectFolderUrl.standardized.path()
+    return projectFolderUrl.standardized.path
 }
 
 private func readTextFromFileHandle(_ handle: FileHandle) -> String {

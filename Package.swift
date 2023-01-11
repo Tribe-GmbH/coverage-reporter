@@ -47,7 +47,7 @@ private func createUnitTestTarget(forTargetUnderTest: String, dependencies: [Tar
 let package = Package(
     name: "coverage-reporter",
     platforms: [
-        .macOS(.v13)
+        .macOS(.v12)
     ],
     products: [
         .executable(
