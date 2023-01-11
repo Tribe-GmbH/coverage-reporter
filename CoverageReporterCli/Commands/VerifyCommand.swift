@@ -17,12 +17,12 @@ struct VerifyCommand: CommandWithContext {
     @Argument(help: ArgumentHelp(
         "The path to the .xcresult directory.",
         valueName: "xcresult-path"
-    ))  var xcResultPath: String
+    )) var xcResultPath: String
 
     @Argument(help: ArgumentHelp(
         "The expected coverage threshold (0-100).",
         valueName: "threshold"
-    ))  var expectedThreshold: Float
+    )) var expectedThreshold: Float
 
     func runWithContext(_ context: CommandContext) throws -> CommandResult {
         let result = context.coverageAnalyzer.meetsThreshold(
