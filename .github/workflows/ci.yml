@@ -62,4 +62,5 @@ jobs:
                   name: dist
                   path: ${{ env.DOWNLOAD_TARGET_PATH }}
             - run: chmod +x ${DOWNLOAD_TARGET_PATH}/coverage-reporter
+            - run: ln -sf ${DOWNLOAD_TARGET_PATH} .build/release
             - run: swift test --filter CliIntegrationTests
