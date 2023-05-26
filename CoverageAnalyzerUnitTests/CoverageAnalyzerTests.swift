@@ -8,7 +8,7 @@ private enum ExampleError: Error {
 }
 
 final class CoverageAnalyzerSpec: QuickSpec {
-    override func spec() {
+    override class func spec() {
         describe("CoverageAnalyzer") {
             describe("meetsThreshold()") {
                 it("returns a failure when given threshold is a negative number") {

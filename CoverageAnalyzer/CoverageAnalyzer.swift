@@ -33,7 +33,7 @@ public struct CoverageAnalyzer: CoverageAnalyzerProtocol {
         return validateThreshold(expectedThreshold).flatMap {
             validThreshold in
 
-            return determineLineCoverage(xcresultPath: xcresultPath).flatMap {
+            return self.determineLineCoverage(xcresultPath: xcresultPath).flatMap {
                 lineCoverageInPercentage in
 
                 if lineCoverageInPercentage >= Double(validThreshold) {

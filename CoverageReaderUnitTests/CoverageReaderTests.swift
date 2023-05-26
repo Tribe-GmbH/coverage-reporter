@@ -30,7 +30,7 @@ private func createReader(_ overrides: Overrides = Overrides())
 }
 
 final class CoverageReaderSpec: QuickSpec {
-    override func spec() {
+    override class func spec() {
         describe("CoverageReader") {
             describe("extractCoverageData()") {
                 it("checks the given path to exist") {

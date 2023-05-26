@@ -56,12 +56,12 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/davidahouse/XCResultKit", from: "1.0.1"),
-        .package(url: "https://github.com/apple/swift-argument-parser", from: "1.2.0"),
-        .package(url: "https://github.com/Quick/Quick", from: "6.1.0"),
-        .package(url: "https://github.com/Quick/Nimble", from: "11.2.1"),
-        .package(url: "https://github.com/realm/SwiftLint", revision: "74dbd52adda90eee0313654d876fdf88c8325552"),
-        .package(url: "https://github.com/nicklockwood/SwiftFormat", from: "0.50.7")
+        .package(url: "https://github.com/davidahouse/XCResultKit", from: "1.0.2"),
+        .package(url: "https://github.com/apple/swift-argument-parser", from: "1.2.2"),
+        .package(url: "https://github.com/Quick/Quick", from: "7.0.0"),
+        .package(url: "https://github.com/Quick/Nimble", from: "12.0.0"),
+        .package(url: "https://github.com/realm/SwiftLint", revision: "0.52.2"),
+        .package(url: "https://github.com/nicklockwood/SwiftFormat", from: "0.51.10")
     ],
     targets: [
         createExecutableTarget(

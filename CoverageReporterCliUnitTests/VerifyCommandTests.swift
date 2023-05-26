@@ -8,7 +8,7 @@ private enum ExampleError: Error, Equatable {
 }
 
 final class VerifyCommandSpec: QuickSpec {
-    override func spec() {
+    override class func spec() {
         describe("VerifyCommand") {
             it("returns an error when no arguments are given") {
                 expect {
