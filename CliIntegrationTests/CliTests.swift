@@ -2,7 +2,7 @@ import Nimble
 import Quick
 
 final class CliSpec: QuickSpec {
-    override func spec() {
+    override class func spec() {
         describe("CLI") {
             it("prints the help message when no commands are given") {
                 let projectFolder = determineProjectFolder()

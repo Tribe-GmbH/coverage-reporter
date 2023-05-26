@@ -4,7 +4,7 @@ import Nimble
 import Quick
 
 final class MainCommandSpec: QuickSpec {
-    override func spec() {
+    override class func spec() {
         describe("MainCommand") {
             it("returns an error when an unknonwn subcommand is given") {
                 expect {
